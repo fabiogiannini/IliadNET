@@ -14,7 +14,7 @@ namespace NIliad
             var password = Console.ReadLine();
 
             var connector = new Iliad(username, password);
-            var customerData = connector.Get();
+            var customerData = connector.GetInfo();
 
             Console.Write(JsonConvert.SerializeObject(customerData, Formatting.Indented));
 

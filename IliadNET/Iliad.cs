@@ -33,9 +33,12 @@ namespace IliadNET
                 .Descendants(0)
                 .FirstOrDefault(d => d.HasClass("end_offerta"));
 
-            var nationalTraffic = doc.DocumentNode
+            var subscription = doc.DocumentNode
                 .Descendants(0)
-                .FirstOrDefault(d => d.HasClass("conso-local"));
+                .FirstOrDefault(d => d.HasClass("p-conso"))
+                .ChildNodes[1]
+                .ChildNodes[1]
+                .InnerText;
 
             var chiamateTime = doc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[4]/div[1]/div[1]/div[1]/div[1]/span[1]").InnerText;
             var chiamateCost = doc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[4]/div[1]/div[1]/div[1]/div[1]/span[2]").InnerText;
@@ -47,16 +50,6 @@ namespace IliadNET
             var mmsCount = doc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[4]/div[2]/div[2]/div[1]/div[1]/span[1]").InnerText;
             var mmsCost = doc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[4]/div[2]/div[2]/div[1]/div[1]/span[2]").InnerText;
 
-            var subscription = doc.DocumentNode
-                .Descendants(0)
-                .FirstOrDefault(d => d.HasClass("p-conso"))
-                .ChildNodes[1]
-                .ChildNodes[1]
-                .InnerText;
-
-            var roamingTraffic = doc.DocumentNode
-                .Descendants(0)
-                .FirstOrDefault(d => d.HasClass("conso-roaming"));
 
             var chiamateTimeRoaming = doc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[5]/div[1]/div[1]/div[1]/div[1]/span[1]").InnerText;
             var chiamateCostRoaming = doc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[5]/div[1]/div[1]/div[1]/div[1]/span[2]").InnerText;
@@ -79,28 +72,33 @@ namespace IliadNET
                 National = new Traffic
                 {
                     CallTime = chiamateTime,
-                    CallCost = chiamateCost,
+                    CallCost = ReplaceEuroSymbol(chiamateCost),
                     SmsSent = smsCount,
-                    SmsCost = smsCost,
+                    SmsCost = ReplaceEuroSymbol(smsCost),
                     InternetUsed = internetUsed,
                     InternetTotal = internetTot,
-                    InternetCost = internetCost,
+                    InternetCost = ReplaceEuroSymbol(internetCost),
                     MmsSent = mmsCount,
-                    MmsCost = mmsCost
+                    MmsCost = ReplaceEuroSymbol(mmsCost)
                 },
                 Roaming = new Traffic
                 {
                     CallTime = chiamateTimeRoaming,
-                    CallCost = chiamateCostRoaming,
+                    CallCost = ReplaceEuroSymbol(chiamateCostRoaming),
                     SmsSent = smsCountRoaming,
-                    SmsCost = smsCostRoaming,
+                    SmsCost = ReplaceEuroSymbol(smsCostRoaming),
                     InternetUsed = internetUsedRoaming,
                     InternetTotal = internetTotRoaming,
-                    InternetCost = internetCostRoaming,
+                    InternetCost = ReplaceEuroSymbol(internetCostRoaming),
                     MmsSent = mmsCountRoaming,
-                    MmsCost = mmsCostRoaming
+                    MmsCost = ReplaceEuroSymbol(mmsCostRoaming)
                 }
             };
+        }
+
+        private string ReplaceEuroSymbol(string text)
+        {
+            return text.Replace("€", "EUR");
         }
 
         private string GetAfter(string text, char symbol)

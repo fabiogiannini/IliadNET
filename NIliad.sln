@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NIliad", "NIliad\NIliad.csproj", "{49400962-D543-4DC3-9162-D3E0512074F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IliadNET.Console", "IliadNET.Console\IliadNET.Console.csproj", "{49400962-D543-4DC3-9162-D3E0512074F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IliadNET", "IliadNET\IliadNET.csproj", "{5891F80F-316D-42BB-AD48-8B6CA0423CDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IliadNET", "IliadNET\IliadNET.csproj", "{5891F80F-316D-42BB-AD48-8B6CA0423CDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AE5D29B1-E4EF-4108-95DC-13422D134C21}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
